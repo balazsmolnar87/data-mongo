@@ -17,6 +17,11 @@ db.orders.aggregate([
  * Which city sold the most products?
  */
 
+db.orders.aggregate([
+    {"$group": {'_id': '$address.city', 'quantities': {'$sum': '$quantity'}},
+    {"$sort": {"quantities": -1}},
+    {"$limit": 1}
+  ]);
 
 /**
  * What was the best month for sales (based on product prices)?
